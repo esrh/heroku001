@@ -41,6 +41,9 @@ def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+    x = event.message.text
+    if x == 'iwana' or x == 'いわな':
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=iwana_now()))
 
 def iwana_now():
     data = "1900d402123138377365727665722e78797a00464d4c0063dd01010009010000000006452306"

@@ -32,7 +32,7 @@ def callback():
 
 @app.route("/iwana")
 def iwana():
-    return iwana_now()
+    return 'iwana_now : {}'.format(iwana_now())
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):

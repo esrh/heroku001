@@ -33,7 +33,10 @@ def callback():
 @app.route("/iwana")
 def iwana():
     x = {}
-    x["iwana_now"] = iwana_now()
+    try:
+        x["iwana_now"] = iwana_now()
+    except ConnectionRefusedError:
+        x["error"] = '187 refused!'
     return json.dumps(x)
 
 @handler.add(MessageEvent, message=TextMessage)

@@ -43,7 +43,7 @@ def iwana():
 def handle_message(event):
     x = event.message.text
     if x == 'iwana' or x == 'いわな':
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=iwana_now()))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=iwana()))
     else:
         line_bot_api.reply_message(
             event.reply_token,

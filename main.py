@@ -9,9 +9,6 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 import os
-import socket
-import binascii
-import json
 
 import iwana.iwana
 

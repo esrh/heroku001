@@ -1,3 +1,8 @@
+import socket
+import binascii
+import json
+import os
+
 def iwana():
     x = {}
     try:

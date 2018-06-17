@@ -2,7 +2,11 @@ import socket
 import binascii
 import json
 import os
+from flask import Module, render_template
 
+iwana = Module(__name__)
+
+@iwana.route('/')
 def iwana():
     x = {}
     try:

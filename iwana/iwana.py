@@ -4,7 +4,7 @@ import json
 import os
 from flask import Blueprint
 
-iwana = Blueprint(__name__)
+iwana = Blueprint('iwana', __name__)
 
 @iwana.route('/')
 def iwana():

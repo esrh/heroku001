@@ -2,7 +2,7 @@ import socket
 import binascii
 import json
 import os
-from flask import Module, render_template
+from flask import render_template
 
 iwana = Blueprint(__name__)
 

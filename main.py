@@ -33,7 +33,7 @@ def callback():
     return 'OK'
 
 @app.route("/iwana")
-def iwana():
+def iwanafunc():
     iwana.iwana()
 
 @handler.add(MessageEvent, message=TextMessage)

@@ -9,7 +9,7 @@ from iwana.iwana import iwana
 
 app = Flask(__name__)
 
-app.register_blueprint(iwana, url_prefix="/iwana")
+app.register_blueprint(iwana.app)
 
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]

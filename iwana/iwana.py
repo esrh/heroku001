@@ -7,7 +7,7 @@ from flask import Blueprint
 app = Blueprint('iwana', __name__)
 
 @app.route('/iwana')
-def iwana():
+def iwanafunc():
     x = {}
     try:
         x["iwana_now"] = iwana_now()

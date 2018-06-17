@@ -5,11 +5,11 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import os
 
 # my module
-from iwana.iwana import iwana
+import iwana.iwana as iwana
 
 app = Flask(__name__)
 
-app.register_blueprint(iwana.app)
+app.register_blueprint(iwana.iwana.app)
 
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
@@ -17,10 +17,10 @@ line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 # twitter
-twCONSUMER_KEY = os.environ['twCONSUMER_KEY']
-twCONSUMER_SECRET = os.environ['twCONSUMER_SECRET']
-CALLBACK_URL = 'https://nazotest001.herokuapp.com/'
-app.config['twSECRET_KEY'] = os.urandom(24)
+#twCONSUMER_KEY = os.environ['twCONSUMER_KEY']
+#twCONSUMER_SECRET = os.environ['twCONSUMER_SECRET']
+#CALLBACK_URL = 'https://nazotest001.herokuapp.com/'
+#app.config['twSECRET_KEY'] = os.urandom(24)
 
 
 @app.route("/callback", methods=['POST'])
@@ -39,7 +39,7 @@ def callback():
 def handle_message(event):
     x = event.message.text
     if x == 'iwana' or x == 'いわな':
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=iwana.iwana.iwana()))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=iwana.iwanafunc()))
     else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
 

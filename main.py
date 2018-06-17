@@ -14,6 +14,9 @@ import os
 # my module
 from iwana.iwana import iwana
 
+app.register_blueprint(iwana, url_prefix="/iwana")
+
+
 app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
@@ -37,8 +40,6 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-
-app.register_module(iwana, url_prefix='/iwana')
 
 
 @handler.add(MessageEvent, message=TextMessage)

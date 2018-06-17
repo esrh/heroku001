@@ -4,7 +4,7 @@ import json
 import os
 from flask import Module, render_template
 
-iwana = Module(__name__)
+iwana = Blueprint(__name__)
 
 @iwana.route('/')
 def iwana():

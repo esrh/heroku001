@@ -6,10 +6,13 @@ import os, json
 
 # my module
 from iwana import iwana
+from tw import tw
 
 app = Flask(__name__)
 
 app.register_blueprint(iwana.app)
+app.register_blueprint(tw.app)
+
 
 try:
     line_bot_api = LineBotApi(os.environ["YOUR_CHANNEL_ACCESS_TOKEN"])
@@ -18,12 +21,6 @@ except:
     with open(os.path.expanduser('~/pass/token.json'), 'r') as f:
         hoge = json.load(f)["line"]
         line_bot_api, handler = LineBotApi(hoge["token"]), WebhookHandler(hoge["secret"])
-
-# twitter
-#twCONSUMER_KEY = os.environ['twCONSUMER_KEY']
-#twCONSUMER_SECRET = os.environ['twCONSUMER_SECRET']
-#CALLBACK_URL = 'https://nazotest001.herokuapp.com/'
-#app.config['twSECRET_KEY'] = os.urandom(24)
 
 
 @app.route("/callback", methods=['POST'])

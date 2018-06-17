@@ -34,18 +34,15 @@ def callback():
 
 @app.route("/iwana")
 def iwanafunc():
-    iwana.iwana()
+    return iwana.iwana()
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     x = event.message.text
     if x == 'iwana' or x == 'いわな':
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=iwana()))
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=iwana.iwana()))
     else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=event.message.text)
-        )
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=event.message.text))
 
 
     

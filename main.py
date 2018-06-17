@@ -2,19 +2,22 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-import os
+import os, json
 
 # my module
-import iwana.iwana as iwana
+from iwana import iwana
 
 app = Flask(__name__)
 
-app.register_blueprint(iwana.iwana.app)
+app.register_blueprint(iwana.app)
 
-YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
-YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
-line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+try:
+    line_bot_api = LineBotApi(os.environ["YOUR_CHANNEL_ACCESS_TOKEN"])
+    handler = WebhookHandler(os.environ["YOUR_CHANNEL_SECRET"])
+except:
+    with open(os.path.expanduser('~/pass/token.json'), 'r') as f:
+        hoge = json.load(f)["line"]
+        line_bot_api, handler = LineBotApi(hoge["token"]), WebhookHandler(hoge["secret"])
 
 # twitter
 #twCONSUMER_KEY = os.environ['twCONSUMER_KEY']

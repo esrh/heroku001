@@ -1,5 +1,6 @@
 ignore/
-push.bat
+old/
+*.bat
 ghostdriver.log
 
 # Byte-compiled / optimized / DLL files

@@ -13,7 +13,7 @@ import socket
 import binascii
 import json
 
-import iwana
+import iwana.iwana
 
 app = Flask(__name__)
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]

@@ -6,13 +6,14 @@ import os, json
 
 # my module
 from iwana import iwana
-from tw import tw
+from tw import tw, tw_auth
 
 app = Flask(__name__)
 
 app.register_blueprint(iwana.app)
 app.register_blueprint(tw.app)
 
+app.config['SECRET_KEY'] = "wiufgb8h23487nyv785ty238c7t74ngry7c3ngr67ygn437nfr6yghy8f43g"
 
 try:
     line_bot_api = LineBotApi(os.environ["YOUR_CHANNEL_ACCESS_TOKEN"])

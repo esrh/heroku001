@@ -8,7 +8,7 @@ def get_request_token(consumer_key, consumer_secret, url):
     consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
     client = oauth.Client(consumer)
     resp, content = client.request('%s?&oauth_callback=%s' % (request_token_url, url))
-    print(content)
+    print(consumer_key, consumer_secret, url)
     request_token = dict(__parse_qsl(content))
     return '%s?oauth_token=%s' % (authenticate_url, request_token['oauth_token'])
 

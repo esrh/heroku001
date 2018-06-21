@@ -72,7 +72,7 @@ def collect_tweet_400():
             
     # decide filename
     now = re.sub(r'-| |\.|:', '_', str(datetime.now()))
-    filename = user_id + '_{}.csv'.format(now)
+    filename = user_id + '_{}__{}.csv'.format(now, os.getpid())
     
     # make response
     bi = io.BytesIO()

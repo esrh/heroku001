@@ -4,6 +4,8 @@ from flask import (Blueprint, render_template, request, redirect,
 import os, io
 from tw import tw_auth
 from twitter import *
+from datetime import datetime
+import re
 
 app = Blueprint('tw', __name__)
 
@@ -67,12 +69,18 @@ def collect_tweet_400():
             xc += '\n'
         if x == '':
             break
+            
+    # decide filename
+    now = re.sub(r'-| |\.|:', '_', str(datetime.now()))
+    filename = user_id + '_{}.csv'.format(now)
+    
+    # make response
     bi = io.BytesIO()
     bi.write(xc.encode('utf-8'))
     res = make_response()
     res.data = bi.getvalue()
     res.headers['Content-Type'] = 'text/plain'
-    res.headers['Content-Disposition'] = 'attachment; filename=data.csv'
+    res.headers['Content-Disposition'] = 'attachment; filename=' + filename
     bi.close()
     return res
 

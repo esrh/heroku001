@@ -24,13 +24,18 @@ def main():
         data = 'you need to login'
     else:
         data = 'you are now logged in'
-    return render_template('tw.html', data=data, auth_url='tw/login', title='collectmachine')
-
+    return render_template('tw.html', data=data, auth_url='login', title='collectmachine')
 
 @app.route('/tw/login/')
 def login_redirect():
     key, secret, url = __keys()
     return redirect(tw_auth.get_request_token(key, secret, url))
+
+@app.route('/tw/logout')
+def logoutpage():
+    session.pop('oauth_token', None)
+    session.pop('oauth_token_secret', None)
+    return redirect('/tw') 
 
 @app.route('/tw/callback', methods=['GET'])
 def tw_callback():

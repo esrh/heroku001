@@ -13,21 +13,21 @@
     <header style="background-color:gray"></header>
     <div class="container text-center">
   
-       <a href="tw"><h2>{{title}}</h2></a>
+       <a href="/tw"><h2>{{title}}</h2></a>
       <p>step1</p>
       <a href="{{auth_url}}">
         <button type="button" id="collect" class="btn btn-default btn-block btn-lg">authenticate</button>
       </a>
       <br><p id="data">{{data}}</p><br>
       <p>step2</p>
-      <a href="tw/collect">
+      <a href="collect">
         <button type="button" id="collect" class="btn btn-default btn-block btn-lg">collect tweet</button>
       </a>
     <br>
-    <a href="tw/logout">logout</a>
+    <a href="logout">logout</a>
     </div>
     <footer style="background-color:gray" class="text-center">powered by Flask(0.12.2)</footer>
     
-    <script src="tw/tw_main.js"></script>
+    <script src="tw_main.js"></script>
   </body>
 </html>

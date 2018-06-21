@@ -41,7 +41,7 @@ def tw_callback():
     return redirect('/tw') 
 
 @app.route('/tw/collect')
-def collect_tweet_200():
+def collect_tweet_400():
     consumer_key, consumer_secret, hoge = __keys()
     if "oauth_token" not in session:
         return 'need login'
@@ -57,8 +57,9 @@ def collect_tweet_200():
             x = t.statuses.user_timeline(count=200, user_id=user_id)
         for xx in x:
             xc += '"{}"'.format(xx['text'].replace('"', '""'))
-            xc += ',"{}"\n'.format(xx['created_at'].replace('"', '""'))
-            xc += ',"{}"\n'.format(xx['source'].replace('"', '""'))
+            xc += ',"{}"'.format(xx['created_at'].replace('"', '""'))
+            xc += ',"{}"'.format(xx['source'].replace('"', '""'))
+            xc += '\n'
         if x == '':
             break
     bi = io.BytesIO()

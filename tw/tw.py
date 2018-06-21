@@ -8,7 +8,7 @@ app = Blueprint('tw', __name__)
 
 def __keys():
     try:
-        key = os.environ['esrh_key'],
+        key = os.environ['esrh_key']
         s = os.environ['esrh_secret']
         url = 'https://nazotest001.herokuapp.com/tw/callback'
     except:

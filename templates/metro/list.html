@@ -4,20 +4,22 @@
 
 <div class="container text-center">
   <form action="" method="get">
-    <textarea id="metro-line" placeholder="路線名" rows="1" class="form-control"></textarea>
-    <button type="button" id="send" class="btn btn-default btn-block btn-lg">search</button>
+    <textarea name="metro-line" placeholder="路線名" rows="1"
+      class="form-control" value=""></textarea>
+    <textarea name="metro-station" placeholder="駅名" rows="1"
+      class="form-control" value=""></textarea>
+    <button type="submit" id="send" class="btn btn-default btn-block btn-lg">search</button>
     <!-- <button formaction="bar">戻る</button> -->
   </form>
 </div>
-
+<br>
+<br>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
-        <th class="col-xs-1">No.</th>
-        <th class="col-xs-2">name</th>
-        <th class="col-xs-4">id</th>
-        <th class="col-xs-4">time</th>
+        <th class="col-xs-2">id</th>
+        <th class="col-xs-1">value</th>
       </tr>
     </thead>
     <tbody>
@@ -25,8 +27,6 @@
       <tr>
         <td>{{ content[0] }}</td>
         <td>{{ content[1] }}</td>
-        <td>{{ content[2] }}</td>
-        <td>{{ content[3] }}</td>  
       </tr>
       {% else %}
           <td>登録されていません</td>

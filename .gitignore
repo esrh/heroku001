@@ -2,6 +2,7 @@ ignore/
 old/
 *.bat
 ghostdriver.log
+*.lnk
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

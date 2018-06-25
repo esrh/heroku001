@@ -18,21 +18,32 @@ def __route_table(route):
     for i, row in df.iterrows():
         if row['route'] == route:
             return row['ID']
-    raise
+    return None
+
+def __station_table(route, station):
+    df = pd.read_csv('metro/station_table.csv')
+    for i, row in df.iterrows():
+        if row['route'] == route and row['station'] == station:
+            return row['id']
+    return None
 
 @app.route('/metro/', methods=['GET'])
 def metro_mainpage():
-    route = request.args.get("metro-line", None)
-    sta = request.args.get("metro-station", None)
-    if route is None and sta is None:
+    return render_template("metro/base.html")
+
+@app.route('/metro/passengers/', methods=['GET'])
+def metro_passengers():
+    route = request.args.get("metro-line", '')
+    sta = request.args.get("metro-station", '')
+    if route == '' and sta == '':
         rt = ''
-    elif sta is None:
+    elif sta == '':
         rt = __stations(route)
-    elif route is None:
+    elif route == '':
         rt = ''
     else:
         rt = __passage(route, sta)
-    title = ' metro search '
+    title = ' metro passengers search '
     # res = Response(nazo(),direct_passthrough=True,mimetype='text/plain')
     return render_template("metro/list.html", subtitle=title,
                            contents=rt)
@@ -41,31 +52,36 @@ def __stations(route):
     print(route)
     rt = []
     _id = __route_table(route)
-    ep = 'https://api.tokyometroapp.jp/api/v2/'
-    uri = 'datapoints?rdf:type=odpt:Station&odpt:railway={}&acl:consumerKey={}'.format(_id, __key())
-    url = ep + uri
-    res = json.loads(rq.get(url).text)
-    print(res)
-    for x in [hoge['odpt:passengerSurvey'] for hoge in res]:
-        for xx in x:
-            rt.append([xx])
+    if _id:
+        ep = 'https://api.tokyometroapp.jp/api/v2/'
+        uri = 'datapoints?rdf:type=odpt:Station&odpt:railway={}&acl:consumerKey={}'.format(_id, __key())
+        url = ep + uri
+        res = json.loads(rq.get(url).text)
+        print(res)
+        for hoge in res:
+            rt.append([hoge['odpt:passengerSurvey'][0].rsplit(".", 1)[0], hoge['dc:title']])
     return rt
 
 def __passage(route, station):
     rt = []
+    # step1
     _id = __route_table(route)
-    token = __key()
-    endpoint = 'https://api.tokyometroapp.jp/api/v2/'
-    uri = 'datapoints?rdf:type=odpt:Station&odpt:railway={}&acl:consumerKey={}'.format(_id, token)
-    url = endpoint + uri
-    res = json.loads(rq.get(url).text)
-    for x in [hoge['odpt:passengerSurvey'] for hoge in res]:
-        for xx in x:
-            url = endpoint + "datapoints/{}?acl:consumerKey={}".format(xx, token)
-            res2 = rq.get(url).text
-            print(res2)
-            journeys = json.loads(res2)[0]["odpt:passengerJourneys"]
-            rt.append([xx, journeys])
-            time.sleep(0.15)
-        break
+    if _id:
+        token = __key()
+        endpoint = 'https://api.tokyometroapp.jp/api/v2/'
+        uri = 'datapoints?rdf:type=odpt:Station&odpt:railway={}&acl:consumerKey={}'.format(_id, token)
+        url = endpoint + uri
+        res = json.loads(rq.get(url).text)
+        # step2
+        _id = __station_table(route, station)
+        if _id:
+            for x in res:
+                if x['owl:sameAs'] == _id:
+                    for xx in x['odpt:passengerSurvey']:
+                        url = endpoint + "datapoints/{}?acl:consumerKey={}".format(xx, token)
+                        res2 = rq.get(url).text
+                        # print(res2)
+                        journeys = json.loads(res2)[0]["odpt:passengerJourneys"]
+                        rt.append([xx, journeys])
+                        time.sleep(0.15)
     return rt

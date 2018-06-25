@@ -7,11 +7,13 @@ import os, json
 # my module
 from iwana import iwana
 from tw import tw, tw_auth
+from metro import metro
 
 app = Flask(__name__)
 
 app.register_blueprint(iwana.app)
 app.register_blueprint(tw.app)
+app.register_blueprint(metro.app)
 
 app.config['SECRET_KEY'] = "wiufgb8h23487nyv785ty238c7t74ngry7c3ngr67ygn437nfr6yghy8f43g"
 
